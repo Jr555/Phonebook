@@ -41,7 +41,7 @@ include('server1.php');
 <table class="table table-dark">
 	<thead>
 	    <tr>
-			<th></th>
+			<th><img src="logo.jpg" width="50" height="50" alt="logo"></th>
 			<th></th>
 			<th><center><h1><font color="red">PHONEBOOK</font></h1></center></th>
 			<th colspan="2"></th>
