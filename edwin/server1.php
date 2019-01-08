@@ -24,7 +24,7 @@
 		$id = $_POST['id'];
 		$name = $_POST['name'];
 		$address = $_POST['address'];
-		$phonenum = $_POST['phone_number'];
+		$phone_number = $_POST['phone_number'];
 
 		mysqli_query($db, "UPDATE contact SET name='$name', address='$address' ,phone_number='$phone_number' WHERE id=$id" );
 		$_SESSION['message']; 
