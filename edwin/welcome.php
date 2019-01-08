@@ -5,11 +5,12 @@ include('server1.php');
 		$update = true;
 		$record = mysqli_query($db, "SELECT * FROM contact WHERE id=$id");
 
-		if (count($record) == 1 ) {
-			$n = mysqli_fetch_array($results);
-			$name = $n['name'];
-			$address = $n['address'];
-			$phone_number = $n['phone_number'];
+		if (mysqli_num_rows($record) == 1) {
+			while ($n = mysqli_fetch_array($record)){
+				$name = $n['name'];
+				$address = $n['address'];
+				$phone_number = $n['phone_number'];
+			}
 		}
 
 	}
