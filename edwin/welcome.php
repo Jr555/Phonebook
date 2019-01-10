@@ -1,19 +1,6 @@
 <?php 
 include('server1.php');
-	if (isset($_GET['edit'])) {
-		$id = $_GET['edit'];
-		$update = true;
-		$record = mysqli_query($db, "SELECT * FROM contact WHERE id=$id");
 
-		if (mysqli_num_rows($record) == 1) {
-			while ($n = mysqli_fetch_array($record)){
-				$name = $n['name'];
-				$address = $n['address'];
-				$phone_number = $n['phone_number'];
-			}
-		}
-
-	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,7 +11,7 @@ include('server1.php');
 	<link rel="stylesheet" href="bootstrap-4.0.0-beta.3-dist/css/bootstrap.min.css">
 </head>
 <body>
-	<form method="post" action="server1.php" >
+
 	<?php if (isset($_SESSION['message'])): ?>
   	
 		<div class="msg">
@@ -36,8 +23,12 @@ include('server1.php');
 		</div>
 	<?php endif ?>
 
-<?php $results = mysqli_query($db, "SELECT * FROM contact"); ?>
-
+<?php
+	if(isset($_GET['username'])){
+		$username = $_GET['username'];
+		$results = mysqli_query($db, "SELECT * FROM users,contact WHERE users.username = '$username' AND contact.username = '$username'");
+?>
+	<form method="post" action="" >
 <table class="table table-dark">
 	<thead>
 	    <tr>
@@ -60,13 +51,14 @@ include('server1.php');
 			<td><?php echo $row['address']; ?></td>
 			<td><?php echo $row['phone_number']; ?></td>
 			<td>
-				<a href="welcome.php?edit=<?php echo $row['id']; ?>" class="edit_btn" >Edit</a>
+				<a href="edit.php?edit=<?php echo $row['id']; ?>" class="edit_btn" >Edit</a>
 			</td>
 			<td>
 				<a href="server1.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a>
 			</td>
 		</tr>
-	<?php } ?>
+	<?php } 
+	} ?>
 </table>
 	
 
@@ -75,7 +67,7 @@ include('server1.php');
 
 	<input type="hidden" name="id" value="<?php echo $id; ?>">
 
-	<b><font color="yellow"><div class="input-group">
+	<b><font color="black"><div class="input-group">
 		<label>Name: </label>
 		<input type="text" name="name" value="<?php echo $name; ?>">
 	</div><br>
@@ -90,6 +82,7 @@ include('server1.php');
 	<div class="input-group">
 
 		<?php if ($update == true): ?>
+		
 			<div class="input-group">
   	          <b><button class="btn" type="submit" name="update" style="background: #0000FF;" ><font color="white">Save</font></button></b>
   	        </div>
@@ -104,3 +97,4 @@ include('server1.php');
 </form>
 </body>
 </html>
+
